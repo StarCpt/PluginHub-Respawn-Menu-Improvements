@@ -25,11 +25,17 @@ jobs:
           path: tools
           repository: 'sepluginloader/PluginLoaderTool'
 
+      - name: Download PluginLoader
+        uses: actions/checkout@v3
+        with:
+          path: pluginloader
+          repository: 'sepluginloader/PluginLoader'
+
       - name: Space Engineers cache
         uses: actions/cache@v3.2.5
         with:
           # A list of files, directories, and wildcard patterns to cache and restore
-          path: se\
+          path: Bin64\
           # An explicit key for restoring and saving the cache
           key: seds
           
@@ -41,25 +47,38 @@ jobs:
           # An explicit key for restoring and saving the cache
           key: loadertool_packages
 
+      - name: PluginLoader NuGet cache
+        uses: actions/cache@v3.2.5
+        with:
+          # A list of files, directories, and wildcard patterns to cache and restore
+          path: pluginloader\packages\
+          # An explicit key for restoring and saving the cache
+          key: pluginloader_packages
+
       # Install SteamCMD
       - name: Setup SteamCMD
         uses: CyberAndrii/setup-steamcmd@v1.1.5
       
         # Install Space Engineers Dedicated Server
       - name: Install Space Engineers
-        run: steamcmd +force_install_dir $env:GITHUB_WORKSPACE\se +login anonymous +app_update 298740 +quit
+        run: steamcmd +force_install_dir $env:GITHUB_WORKSPACE\Bin64 +login anonymous +app_update 298740 +quit
         shell: powershell
 
       - name: Add msbuild to PATH
         uses: microsoft/setup-msbuild@v1.1
 
+      - name: Build PluginLoader.dll
+        run: |
+          msbuild -t:restore -p:RestorePackagesConfig=true pluginloader\PluginLoader.sln
+          msbuild -t:Build -p:OutputPath=..\Bin64,Configuration=Release,Platform=x64,TargetFrameworkVersion=v4.8 pluginloader\PluginLoader\PluginLoader.csproj
+          
       - name: Build PluginLoaderTool.exe
         run: |
           msbuild -t:restore -p:RestorePackagesConfig=true tools\PluginLoaderTool.sln
           msbuild -t:Build -p:OutputPath=..\build,Configuration=Release,Platform=x64,TargetFrameworkVersion=v4.8 tools\PluginLoaderTool\PluginLoaderTool.csproj
           
       - name: Run PluginLoaderTools.exe
-        run: tools\build\PluginLoaderTool.exe -i main\Plugins --cache compiled_plugins --steamdir se -o plugins.zip
+        run: tools\build\PluginLoaderTool.exe -i main\Plugins --cache compiled_plugins --steamdir Bin64 -o plugins.zip
       
       - name: Upload a Build Artifact
         uses: actions/upload-artifact@v3.1.2
