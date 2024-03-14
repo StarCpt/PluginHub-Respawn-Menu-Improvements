@@ -35,7 +35,7 @@ jobs:
         uses: actions/cache@v3.2.5
         with:
           # A list of files, directories, and wildcard patterns to cache and restore
-          path: Bin64\
+          path: se\
           # An explicit key for restoring and saving the cache
           key: seds
           
@@ -61,7 +61,7 @@ jobs:
       
         # Install Space Engineers Dedicated Server
       - name: Install Space Engineers
-        run: steamcmd +force_install_dir $env:GITHUB_WORKSPACE\Bin64 +login anonymous +app_update 298740 +quit
+        run: steamcmd +force_install_dir $env:GITHUB_WORKSPACE\se +login anonymous +app_update 298740 +quit
         shell: powershell
 
       - name: Add msbuild to PATH
@@ -69,8 +69,9 @@ jobs:
 
       - name: Build PluginLoader.dll
         run: |
+          cmd /c mklink /J pluginloader\Bin64 se\DedicatedServer64
           msbuild -t:restore -p:RestorePackagesConfig=true pluginloader\PluginLoader.sln
-          msbuild -t:Build -p:OutputPath=..\Bin64,Configuration=Release,Platform=x64,TargetFrameworkVersion=v4.8 pluginloader\PluginLoader\PluginLoader.csproj
+          msbuild -t:Build -p:OutputPath=..\..\se\DedicatedServer64,Configuration=Release,Platform=x64,TargetFrameworkVersion=v4.8 pluginloader\PluginLoader\PluginLoader.csproj
           
       - name: Build PluginLoaderTool.exe
         run: |
@@ -78,7 +79,7 @@ jobs:
           msbuild -t:Build -p:OutputPath=..\build,Configuration=Release,Platform=x64,TargetFrameworkVersion=v4.8 tools\PluginLoaderTool\PluginLoaderTool.csproj
           
       - name: Run PluginLoaderTools.exe
-        run: tools\build\PluginLoaderTool.exe -i main\Plugins --cache compiled_plugins --steamdir Bin64 -o plugins.zip
+        run: tools\build\PluginLoaderTool.exe -i main\Plugins --cache compiled_plugins --steamdir se -o plugins.zip
       
       - name: Upload a Build Artifact
         uses: actions/upload-artifact@v3.1.2
