@@ -92,3 +92,32 @@ jobs:
           if-no-files-found: warn
           # Duration after which artifact will expire in days. 0 means using default retention.
           retention-days: 0
+
+      - name: Get Current Date
+        id: date
+        uses: Kaven-Universe/github-action-current-date-time@v1.4.0
+        with:
+          format: "YYYY-MM-DD"
+
+      - name: Get Current Date (Compact)
+        id: cdate
+        uses: Kaven-Universe/github-action-current-date-time@v1.4.0
+        with:
+          format: "YYYYMMDD"
+
+      - name: Rename plugins.zip
+        run: Rename-Item -Path plugins.zip -newname "plugins-${{ steps.cdate.outputs.time }}.zip"
+
+      - name: Create Archive Release
+        uses: ncipollo/release-action@v1.14.0
+        with:
+          tag: "${{ steps.date.outputs.time }}"
+          name: "Plugin Archive ${{ steps.date.outputs.time }}"
+          body: |
+            A zip archive of all current plugins.
+            ###### Release created with GitHub Actions - [${{ github.workflow }} workflow #${{ github.run_number }}](${{ github.event.repository.html_url }}/actions/runs/${{ github.run_id }})
+          artifacts: "plugins-${{ steps.cdate.outputs.time }}.zip"
+          allowUpdates: "true"
+          artifactErrorsFailBuild: "true"
+          removeArtifacts: "true"
+          replacesArtifacts: "true"
