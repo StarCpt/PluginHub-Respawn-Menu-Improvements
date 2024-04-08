@@ -75,6 +75,7 @@ jobs:
           
       - name: Build PluginLoaderTool.exe
         run: |
+          cmd /c mklink /J tools\Bin64 se\DedicatedServer64
           msbuild -t:restore -p:RestorePackagesConfig=true tools\PluginLoaderTool.sln
           msbuild -t:Build -p:OutputPath=..\build,Configuration=Release,Platform=x64,TargetFrameworkVersion=v4.8 tools\PluginLoaderTool\PluginLoaderTool.csproj
           
