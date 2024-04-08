@@ -4,9 +4,10 @@
   <GroupId>viktor-ferenczi/multigrid-projector</GroupId>
   <FriendlyName>Multigrid Projector</FriendlyName>
   <Author>Viktor</Author>
-  <Commit>143b5a4d38107007dafb6061881000077fb4c540</Commit>
+  <Commit>1771dfad870187ad2c95ef3ea3aab5bda5ad720b</Commit>
   <SourceDirectories>
     <Directory>MultigridProjector</Directory>
+    <Directory>MultigridProjectorApi</Directory>
     <Directory>MultigridProjectorClient</Directory>
   </SourceDirectories>
   <Tooltip>Allows loading blueprints of multiple sub-grids into projectors and welding them.</Tooltip>
