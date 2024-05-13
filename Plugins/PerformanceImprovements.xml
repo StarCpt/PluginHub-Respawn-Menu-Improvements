@@ -4,7 +4,7 @@
   <GroupId>viktor-ferenczi/performance-improvements</GroupId>
   <FriendlyName>Performance Improvements</FriendlyName>
   <Author>Viktor</Author>
-  <Commit>db189c7cd22bf5240f8e586bed4cddfe10ad263e</Commit>
+  <Commit>bae548bbb336b2f6e84fa7188c7e2ed37f0597c7</Commit>
   <SourceDirectories>
     <Directory>Shared</Directory>
     <Directory>ClientPlugin</Directory>
@@ -17,6 +17,9 @@ https://discord.gg/PYPFPGf3Ca
 
 Please consider supporting my work on Patreon:
 https://www.patreon.com/semods
+
+One time support via PayPal:
+https://www.paypal.com/paypalme/vferenczi/
 
 Thank you!
   </Description>
