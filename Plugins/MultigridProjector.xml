@@ -4,9 +4,10 @@
   <GroupId>viktor-ferenczi/multigrid-projector</GroupId>
   <FriendlyName>Multigrid Projector</FriendlyName>
   <Author>Viktor</Author>
-  <Commit>143b5a4d38107007dafb6061881000077fb4c540</Commit>
+  <Commit>26bdb8fe56aeeb73696c0d7abbd367cead78456a</Commit>
   <SourceDirectories>
     <Directory>MultigridProjector</Directory>
+    <Directory>MultigridProjectorApi</Directory>
     <Directory>MultigridProjectorClient</Directory>
   </SourceDirectories>
   <Tooltip>Allows loading blueprints of multiple sub-grids into projectors and welding them.</Tooltip>
@@ -18,14 +19,17 @@ https://discord.gg/PYPFPGf3Ca
 Please consider supporting my work on Patreon:
 https://www.patreon.com/semods
 
+One time support via PayPal:
+https://www.paypal.com/paypalme/vferenczi/
+
 Thank you!
   </Description>
 
   <!--
   <AlternateVersions>
     <Version>
-      <Name>0.6.0: Projection to assembler (new feature)</Name>
-      <Commit>143b5a4d38107007dafb6061881000077fb4c540</Commit>
+      <Name>?</Name>
+      <Commit>?</Commit>
     </Version>
   </AlternateVersions>
   -->
